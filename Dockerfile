@@ -14,7 +14,6 @@ COPY --from=nodejs /usr/local /usr/local
 COPY conf/supervisord.conf /etc/supervisord.conf
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 COPY conf/default.conf /etc/nginx/conf.d/default.conf
-COPY conf/ssl /etc/nginx/ssl
 
 COPY start.sh /start.sh
 
