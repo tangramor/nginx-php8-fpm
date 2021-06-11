@@ -9,11 +9,6 @@ else
  webroot=/var/www/html
 fi
 
-# Enables 404 pages through php index
-if [ ! -z "$PHP_CATCHALL" ]; then
- sed -i 's#try_files $uri $uri/ =404;#try_files $uri $uri/ /index.php?$args;#g' /etc/nginx/conf.d/default.conf
-fi
-
 # Enable custom nginx config files if they exist
 if [ -f /var/www/html/conf/nginx/nginx.conf ]; then
   cp /var/www/html/conf/nginx/nginx.conf /etc/nginx/nginx.conf
@@ -68,7 +63,7 @@ if [ -f /etc/nginx/conf.d/default-ssl.conf ]; then
 fi
 
 # Set the desired timezone
-echo "date.timezone=Asia/Shanghai" > /usr/local/etc/php/conf.d/timezone.ini
+echo "date.timezone="$TZ > /usr/local/etc/php/conf.d/timezone.ini
 
 # Display errors in docker logs
 if [ ! -z "$PHP_ERRORS_STDERR" ]; then
@@ -129,18 +124,6 @@ else
     fi
 fi
 
-if [ ! -z "$PUID" ]; then
-  if [ -z "$PGID" ]; then
-    PGID=${PUID}
-  fi
-  deluser nginx
-  addgroup -g ${PGID} nginx
-  adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx -u ${PUID} nginx
-else
-  if [ -z "$SKIP_CHOWN" ]; then
-    chown -Rf nginx.nginx /var/www/html
-  fi
-fi
 
 # Run custom scripts
 if [[ "$RUN_SCRIPTS" == "1" ]] ; then
@@ -154,23 +137,11 @@ if [[ "$RUN_SCRIPTS" == "1" ]] ; then
   fi
 fi
 
-if [ -z "$SKIP_COMPOSER" ]; then
-    # Allow nginx user to call composer closes #169
-    # Try auto install for composer
-    if [ -f "/var/www/html/composer.lock" ]; then
-        if [ "$APPLICATION_ENV" == "development" ]; then
-            su - nginx -c 'composer global require hirak/prestissimo'
-            su - nginx -c 'composer install --working-dir=/var/www/html'
-        else
-            su - nginx -c 'composer global require hirak/prestissimo'
-            su - nginx -c 'composer install --no-dev --working-dir=/var/www/html'
-        fi
-    fi
-fi
-
 # cp -Rf /var/www/html/config.orig/* /var/www/html/config/
 
-# mkdir -p /var/www/html/storage/{logs,app/public,framework/{cache/data,sessions,testing,views}}
+if [[ "$CREATE_LARAVEL_STORAGE" == "1" ]] ; then
+  mkdir -p /var/www/html/storage/{logs,app/public,framework/{cache/data,sessions,testing,views}}
+fi
 
 # sed -i 's/error_log \/dev\/stderr info;//g' /etc/supervisord.conf
 
