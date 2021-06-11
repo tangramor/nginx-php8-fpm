@@ -2,7 +2,7 @@ FROM node:15-alpine3.13 AS nodejs
 
 FROM php:8-fpm-alpine
 
-ARG WWWGROUP
+USER root
 
 WORKDIR /var/www/html
 
