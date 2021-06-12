@@ -14,16 +14,21 @@ FROM tangramor/nginx-php8-fpm
 # copy source code
 COPY . /var/www/html
 
+# If there is a conf folder under /var/www/html, the start.sh will
+# copy conf/nginx.conf to /etc/nginx/nginx.conf
+# copy conf/nginx-site.conf to /etc/nginx/conf.d/default.conf
+# copy conf/nginx-site-ssl.conf to /etc/nginx/conf.d/default-ssl.conf
+
 # copy ssl cert files
 COPY conf/ssl /etc/nginx/ssl
 
-# replace default web root
+# start.sh will replace default web root from /var/www/html to $WEBROOT
 ENV WEBROOT "/var/www/html/public"
 
-# use redis as session store with docker container name "redis"
+# start.sh will use redis as session store with docker container name $PHP_REDIS_SESSION_HOST
 ENV PHP_REDIS_SESSION_HOST "redis"
 
-# create laravel storage folder structure
+# start.sh will create laravel storage folder structure if $CREATE_LARAVEL_STORAGE = 1
 ENV CREATE_LARAVEL_STORAGE "1"
 
 # download required node/php packages, 

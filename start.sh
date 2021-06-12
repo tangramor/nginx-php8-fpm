@@ -10,16 +10,16 @@ else
 fi
 
 # Enable custom nginx config files if they exist
-if [ -f /var/www/html/conf/nginx/nginx.conf ]; then
-  cp /var/www/html/conf/nginx/nginx.conf /etc/nginx/nginx.conf
+if [ -f /var/www/html/conf/nginx.conf ]; then
+  cp /var/www/html/conf/nginx.conf /etc/nginx/nginx.conf
 fi
 
-if [ -f /var/www/html/conf/nginx/nginx-site.conf ]; then
-  cp /var/www/html/conf/nginx/nginx-site.conf /etc/nginx/conf.d/default.conf
+if [ -f /var/www/html/conf/nginx-site.conf ]; then
+  cp /var/www/html/conf/nginx-site.conf /etc/nginx/conf.d/default.conf
 fi
 
-if [ -f /var/www/html/conf/nginx/nginx-site-ssl.conf ]; then
-  cp /var/www/html/conf/nginx/nginx-site-ssl.conf /etc/nginx/conf.d/default-ssl.conf
+if [ -f /var/www/html/conf/nginx-site-ssl.conf ]; then
+  cp /var/www/html/conf/nginx-site-ssl.conf /etc/nginx/conf.d/default-ssl.conf
 fi
 
 # Prevent config files from being filled to infinity by force of stop and restart the container
