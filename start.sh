@@ -63,7 +63,10 @@ if [ -f /etc/nginx/conf.d/default-ssl.conf ]; then
 fi
 
 # Set the desired timezone
-echo "date.timezone="$TZ > /usr/local/etc/php/conf.d/timezone.ini
+if [ ! -z "" ]; then
+  echo "date.timezone="$TZ > /usr/local/etc/php/conf.d/timezone.ini
+  rm -f /etc/localtime && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+fi
 
 # Display errors in docker logs
 if [ ! -z "$PHP_ERRORS_STDERR" ]; then

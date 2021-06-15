@@ -22,11 +22,14 @@ COPY . /var/www/html
 # copy ssl cert files
 COPY conf/ssl /etc/nginx/ssl
 
+# start.sh will set desired timezone with $TZ
+ENV TZ Asia/Shanghai
+
 # start.sh will replace default web root from /var/www/html to $WEBROOT
-ENV WEBROOT "/var/www/html/public"
+ENV WEBROOT /var/www/html/public
 
 # start.sh will use redis as session store with docker container name $PHP_REDIS_SESSION_HOST
-ENV PHP_REDIS_SESSION_HOST "redis"
+ENV PHP_REDIS_SESSION_HOST redis
 
 # start.sh will create laravel storage folder structure if $CREATE_LARAVEL_STORAGE = 1
 ENV CREATE_LARAVEL_STORAGE "1"
@@ -52,3 +55,6 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     # change /var/www/html user/group
     && chown -Rf nginx.nginx /var/www/html
 ```
+
+You may check [start.sh](https://github.com/tangramor/nginx-php8-fpm/blob/master/start.sh) for more information about what it can do.
+
