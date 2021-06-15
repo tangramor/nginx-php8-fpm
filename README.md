@@ -58,3 +58,111 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 You may check [start.sh](https://github.com/tangramor/nginx-php8-fpm/blob/master/start.sh) for more information about what it can do.
 
+
+### Develop with this image
+
+Another example to develop with this image for a Laravel 8 project, you may modify the `docker-compose.yml` of your project:
+
+```
+# For more information: https://laravel.com/docs/sail
+version: '3'
+services:
+    laravel.test:
+        image: tangramor/nginx-php8-fpm
+        ports:
+            - '${APP_PORT:-80}:80'
+        environment:
+            TZ: 'Asia/Shanghai'
+            WEBROOT: '/var/www/html/public'
+            PHP_REDIS_SESSION_HOST: 'redis'
+            CREATE_LARAVEL_STORAGE: '1'
+        volumes:
+            - '.:/var/www/html'
+        networks:
+            - sail
+        depends_on:
+            - mysql
+            # - pgsql
+            - redis
+            # - selenium
+
+    # selenium:
+    #     image: 'selenium/standalone-chrome'
+    #     volumes:
+    #         - '/dev/shm:/dev/shm'
+    #     networks:
+    #         - sail
+
+    mysql:
+        image: 'mariadb:10'
+        #ports:
+        #    - '${FORWARD_DB_PORT:-3306}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        volumes:
+            - 'sailmysql:/var/lib/mysql'
+        networks:
+            - sail
+        security_opt:
+            - seccomp:unconfined
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping"]
+
+#    pgsql:
+#        image: postgres:13
+#        ports:
+#            - '${FORWARD_DB_PORT:-5432}:5432'
+#        environment:
+#            PGPASSWORD: '${DB_PASSWORD:-secret}'
+#            POSTGRES_DB: '${DB_DATABASE}'
+#            POSTGRES_USER: '${DB_USERNAME}'
+#            POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
+#        volumes:
+#            - 'sailpostgresql:/var/lib/postgresql/data'
+#        networks:
+#            - sail
+#        healthcheck:
+#          test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}"]
+
+    redis:
+        image: 'redis:alpine'
+        #ports:
+        #    - '${FORWARD_REDIS_PORT:-6379}:6379'
+        volumes:
+            - 'sailredis:/data'
+        networks:
+            - sail
+        healthcheck:
+          test: ["CMD", "redis-cli", "ping"]
+
+    memcached:
+        image: 'memcached:alpine'
+        ports:
+            - '11211:11211'
+        networks:
+            - sail
+
+    mailhog:
+        image: 'mailhog/mailhog:latest'
+        ports:
+            - '${FORWARD_MAILHOG_PORT:-1025}:1025'
+            - '${FORWARD_MAILHOG_DASHBOARD_PORT:-8025}:8025'
+        networks:
+            - sail
+
+networks:
+    sail:
+        driver: bridge
+
+volumes:
+    sailmysql:
+        driver: local
+#    sailpostgresql:
+#        driver: local
+    sailredis:
+        driver: local
+```
