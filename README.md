@@ -8,7 +8,7 @@ For example, use this docker image to deploy a **Laravel 8** project.
 
 Dockerfile:
 
-```
+```dockerfile
 FROM tangramor/nginx-php8-fpm
 
 # copy source code
@@ -61,9 +61,11 @@ You may check [start.sh](https://github.com/tangramor/nginx-php8-fpm/blob/master
 
 ### Develop with this image
 
-Another example to develop with this image for a Laravel 8 project, you may modify the `docker-compose.yml` of your project:
+Another example to develop with this image for a **Laravel 8** project, you may modify the `docker-compose.yml` of your project.
 
-```
+Make sure you have correct environment parameters set:
+
+```yaml
 # For more information: https://laravel.com/docs/sail
 version: '3'
 services:
