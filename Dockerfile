@@ -1,6 +1,6 @@
 FROM node:15-alpine3.13 AS nodejs
 
-FROM php:8-fpm-alpine
+FROM php:8-fpm-alpine3.13
 
 USER root
 
