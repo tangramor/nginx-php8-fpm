@@ -1,6 +1,66 @@
 # Nginx + php-fpm (v8)
 
-Based on php:8-fpm-alpine, node:15-alpine3.13, nginx:alpine and richarvey/nginx-php-fpm's script
+Based on php:8-fpm-alpine3.14, node:17-alpine3.14 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
+
+## PHP Modules
+
+In this image it contains following PHP modules:
+
+```
+# php -m
+[PHP Modules]
+bcmath
+Core
+ctype
+curl
+date
+dom
+fileinfo
+filter
+ftp
+gd
+hash
+iconv
+igbinary
+imap
+intl
+json
+ldap
+libxml
+mbstring
+memcached
+msgpack
+mysqli
+mysqlnd
+openssl
+pcre
+PDO
+pdo_mysql
+pdo_sqlite
+Phar
+posix
+readline
+redis
+Reflection
+session
+SimpleXML
+soap
+sockets
+sodium
+SPL
+sqlite3
+standard
+tokenizer
+xml
+xmlreader
+xmlwriter
+Zend OPcache
+zip
+zlib
+
+[Zend Modules]
+Zend OPcache
+```
 
 ## How to use
 

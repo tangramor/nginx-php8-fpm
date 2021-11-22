@@ -19,8 +19,8 @@ COPY start.sh /start.sh
 
 ENV PHP_MODULE_DEPS zlib-dev libmemcached-dev cyrus-sasl-dev libpng-dev libxml2-dev krb5-dev curl-dev icu-dev libzip-dev openldap-dev imap-dev postgresql-dev
 
-ENV NGINX_VERSION 1.21.0
-ENV NJS_VERSION   0.5.3
+ENV NGINX_VERSION 1.21.4
+ENV NJS_VERSION   0.7.0
 ENV PKG_RELEASE   1
 
 RUN set -x \
