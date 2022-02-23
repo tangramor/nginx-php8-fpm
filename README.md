@@ -7,7 +7,8 @@ Tags:
 * php8.0.13_node17
 * php8_node15
 
-**NOTE** If you are upgrading from PHP 8.0 to 8.1, you may need to run `composer update` to upgrade php modules
+**NOTE** If you are upgrading from PHP 8.0 to 8.1, you may need to run `composer update` to upgrade php packages, because some packages under 8.0 are not supported in 8.1
+
 
 ## PHP Modules
 
