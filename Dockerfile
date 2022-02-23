@@ -1,6 +1,6 @@
-FROM node:17-alpine3.14 AS nodejs
+FROM node:17-alpine3.15 AS nodejs
 
-FROM php:8.0.13-fpm-alpine3.14
+FROM php:8.1.3-fpm-alpine3.15
 
 USER root
 
@@ -19,8 +19,8 @@ COPY start.sh /start.sh
 
 ENV PHP_MODULE_DEPS zlib-dev libmemcached-dev cyrus-sasl-dev libpng-dev libxml2-dev krb5-dev curl-dev icu-dev libzip-dev openldap-dev imap-dev postgresql-dev
 
-ENV NGINX_VERSION 1.21.4
-ENV NJS_VERSION   0.7.0
+ENV NGINX_VERSION 1.21.6
+ENV NJS_VERSION   0.7.2
 ENV PKG_RELEASE   1
 
 RUN set -x \
@@ -157,7 +157,7 @@ RUN curl http://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --fil
     && set -xe \
     && apk add --no-cache --update --virtual .phpize-deps $PHPIZE_DEPS \
     && apk add --no-cache --update --virtual .all-deps $PHP_MODULE_DEPS \
-    && docker-php-ext-install sockets gd bcmath intl soap tokenizer mysqli pdo_mysql zip ldap imap iconv dom opcache \
+    && docker-php-ext-install sockets gd bcmath intl soap mysqli pdo_mysql zip ldap imap iconv dom opcache \
     && printf "\n\n\n\n" | pecl install -o -f redis \
     && rm -rf /tmp/pear \
     && docker-php-ext-enable redis \
