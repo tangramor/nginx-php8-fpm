@@ -72,7 +72,7 @@ Zend OPcache
 
 ## How to use
 
-For example, use this docker image to deploy a **Laravel 8** project.
+For example, use this docker image to deploy a **Laravel 9** project.
 
 Dockerfile:
 
@@ -129,7 +129,7 @@ You may check [start.sh](https://github.com/tangramor/nginx-php8-fpm/blob/master
 
 ### Develop with this image
 
-Another example to develop with this image for a **Laravel 8** project, you may modify the `docker-compose.yml` of your project.
+Another example to develop with this image for a **Laravel 9** project, you may modify the `docker-compose.yml` of your project.
 
 Make sure you have correct environment parameters set:
 
@@ -139,83 +139,67 @@ version: '3'
 services:
     laravel.test:
         image: tangramor/nginx-php8-fpm
-        ports:
-            - '${APP_PORT:-80}:80'
         environment:
             TZ: 'Asia/Shanghai'
             WEBROOT: '/var/www/html/public'
             PHP_REDIS_SESSION_HOST: 'redis'
             CREATE_LARAVEL_STORAGE: '1'
+        ports:
+            - '${APP_PORT:-80}:80'
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
         volumes:
             - '.:/var/www/html'
         networks:
             - sail
         depends_on:
             - mysql
-            # - pgsql
             - redis
-            # - selenium
-
-    # selenium:
-    #     image: 'selenium/standalone-chrome'
-    #     volumes:
-    #         - '/dev/shm:/dev/shm'
-    #     networks:
-    #         - sail
-
+            - meilisearch
+            - selenium
     mysql:
-        image: 'mariadb:10'
-        #ports:
-        #    - '${FORWARD_DB_PORT:-3306}:3306'
+        image: 'mysql/mysql-server:8.0'
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
             MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ROOT_HOST: "%"
             MYSQL_DATABASE: '${DB_DATABASE}'
             MYSQL_USER: '${DB_USERNAME}'
             MYSQL_PASSWORD: '${DB_PASSWORD}'
-            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
         volumes:
-            - 'sailmysql:/var/lib/mysql'
+            - 'sail-mysql:/var/lib/mysql'
         networks:
             - sail
-        security_opt:
-            - seccomp:unconfined
         healthcheck:
-            test: ["CMD", "mysqladmin", "ping"]
-
-#    pgsql:
-#        image: postgres:13
-#        ports:
-#            - '${FORWARD_DB_PORT:-5432}:5432'
-#        environment:
-#            PGPASSWORD: '${DB_PASSWORD:-secret}'
-#            POSTGRES_DB: '${DB_DATABASE}'
-#            POSTGRES_USER: '${DB_USERNAME}'
-#            POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
-#        volumes:
-#            - 'sailpostgresql:/var/lib/postgresql/data'
-#        networks:
-#            - sail
-#        healthcheck:
-#          test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}"]
-
+            test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+            retries: 3
+            timeout: 5s
     redis:
         image: 'redis:alpine'
-        #ports:
-        #    - '${FORWARD_REDIS_PORT:-6379}:6379'
+        ports:
+            - '${FORWARD_REDIS_PORT:-6379}:6379'
         volumes:
-            - 'sailredis:/data'
+            - 'sail-redis:/data'
         networks:
             - sail
         healthcheck:
-          test: ["CMD", "redis-cli", "ping"]
-
-    memcached:
-        image: 'memcached:alpine'
+            test: ["CMD", "redis-cli", "ping"]
+            retries: 3
+            timeout: 5s
+    meilisearch:
+        image: 'getmeili/meilisearch:latest'
         ports:
-            - '11211:11211'
+            - '${FORWARD_MEILISEARCH_PORT:-7700}:7700'
+        volumes:
+            - 'sail-meilisearch:/data.ms'
         networks:
             - sail
-
+        healthcheck:
+            test: ["CMD", "wget", "--no-verbose", "--spider",  "http://localhost:7700/health"]
+            retries: 3
+            timeout: 5s
     mailhog:
         image: 'mailhog/mailhog:latest'
         ports:
@@ -223,16 +207,20 @@ services:
             - '${FORWARD_MAILHOG_DASHBOARD_PORT:-8025}:8025'
         networks:
             - sail
-
+    selenium:
+        image: 'selenium/standalone-chrome'
+        volumes:
+            - '/dev/shm:/dev/shm'
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge
-
 volumes:
-    sailmysql:
+    sail-mysql:
         driver: local
-#    sailpostgresql:
-#        driver: local
-    sailredis:
+    sail-redis:
+        driver: local
+    sail-meilisearch:
         driver: local
 ```
