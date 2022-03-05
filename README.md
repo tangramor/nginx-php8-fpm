@@ -2,6 +2,68 @@
 
 Based on php:8-fpm-alpine, node:15-alpine3.13, nginx:alpine and richarvey/nginx-php-fpm's script
 
+## PHP Modules
+
+In this image it contains following PHP modules:
+
+```
+# php -m
+[PHP Modules]
+bcmath
+Core
+ctype
+curl
+date
+dom
+fileinfo
+filter
+ftp
+gd
+hash
+iconv
+igbinary
+imap
+intl
+json
+ldap
+libxml
+mbstring
+memcached
+msgpack
+mysqli
+mysqlnd
+openssl
+pcre
+PDO
+pdo_mysql
+pdo_pgsql
+pdo_sqlite
+pgsql
+Phar
+posix
+readline
+redis
+Reflection
+session
+SimpleXML
+soap
+sockets
+sodium
+SPL
+sqlite3
+standard
+tokenizer
+xml
+xmlreader
+xmlwriter
+Zend OPcache
+zip
+zlib
+
+[Zend Modules]
+Zend OPcache
+```
+
 ## How to use
 
 For example, use this docker image to deploy a **Laravel 8** project.
