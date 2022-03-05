@@ -175,6 +175,7 @@ RUN curl http://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --fil
     # && cd /usr/local \
     # && npm config set registry https://registry.npm.taobao.org \
     && rm -rf /var/cache/apk/* /tmp/* /var/tmp/* \
+    && rm -f /etc/nginx/conf.d/default.conf.apk-new && rm -f /etc/nginx/nginx.conf.apk-new \
     && setcap 'cap_net_bind_service=+ep' /usr/local/bin/php \
     && mkdir -p /var/log/supervisor \
     && chmod +x /start.sh
