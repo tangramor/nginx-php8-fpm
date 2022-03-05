@@ -157,7 +157,7 @@ RUN curl http://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --fil
     && set -xe \
     && apk add --no-cache --update --virtual .phpize-deps $PHPIZE_DEPS \
     && apk add --no-cache --update --virtual .all-deps $PHP_MODULE_DEPS \
-    && docker-php-ext-install sockets gd bcmath intl soap mysqli pdo_mysql zip ldap imap iconv dom opcache \
+    && docker-php-ext-install sockets gd bcmath intl soap mysqli pdo pdo_mysql pgsql pdo_pgsql zip ldap imap iconv dom opcache \
     && printf "\n\n\n\n" | pecl install -o -f redis \
     && rm -rf /tmp/pear \
     && docker-php-ext-enable redis \

@@ -1,4 +1,4 @@
-# Nginx + php-fpm (v8)
+# Nginx + php-fpm (v8) + nodejs
 
 Based on php:8-fpm-alpine3.15, node:17-alpine3.15 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
@@ -44,7 +44,9 @@ openssl
 pcre
 PDO
 pdo_mysql
+pdo_pgsql
 pdo_sqlite
+pgsql
 Phar
 posix
 readline
