@@ -87,6 +87,11 @@ COPY conf/ssl /etc/nginx/ssl
 # start.sh will set desired timezone with $TZ
 ENV TZ Asia/Shanghai
 
+# China php composer mirror: https://mirrors.cloud.tencent.com/composer/
+ENV COMPOSERMIRROR="https://mirrors.cloud.tencent.com/composer/"
+# China npm mirror: https://registry.npm.taobao.org
+ENV NPMMIRROR="https://registry.npm.taobao.org"
+
 # start.sh will replace default web root from /var/www/html to $WEBROOT
 ENV WEBROOT /var/www/html/public
 
@@ -125,6 +130,8 @@ You may check [start.sh](https://github.com/tangramor/nginx-php8-fpm/blob/master
 
 Another example to develop with this image for a **Laravel 8** project, you may modify the `docker-compose.yml` of your project.
 
+Here we only modified fields `image` and `environment` under `services -> laravel.test`.
+
 Make sure you have correct environment parameters set:
 
 ```yaml
@@ -140,6 +147,8 @@ services:
             WEBROOT: '/var/www/html/public'
             PHP_REDIS_SESSION_HOST: 'redis'
             CREATE_LARAVEL_STORAGE: '1'
+            COMPOSERMIRROR: 'https://mirrors.cloud.tencent.com/composer/'
+            NPMMIRROR: 'https://registry.npm.taobao.org'
         volumes:
             - '.:/var/www/html'
         networks:
