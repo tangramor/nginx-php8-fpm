@@ -2,11 +2,22 @@ FROM node:17-alpine3.14 AS nodejs
 
 FROM php:8.0.13-fpm-alpine3.14
 
+LABEL org.opencontainers.image.authors="Wang Junhua(tangramor@gmail.com)"
+LABEL org.opencontainers.image.url="https://www.github.com/tangramor/nginx-php8-fpm"
+
+# China alpine mirror: mirrors.ustc.edu.cn
+ARG APKMIRROR=dl-cdn.alpinelinux.org
+
 USER root
 
 WORKDIR /var/www/html
 
 ENV TZ=Asia/Shanghai
+
+# China php composer mirror: https://mirrors.cloud.tencent.com/composer/
+ENV COMPOSERMIRROR=""
+# China npm mirror: https://registry.npm.taobao.org
+ENV NPMMIRROR=""
 
 COPY --from=nodejs /opt /opt
 COPY --from=nodejs /usr/local /usr/local
@@ -23,7 +34,8 @@ ENV NGINX_VERSION 1.21.4
 ENV NJS_VERSION   0.7.0
 ENV PKG_RELEASE   1
 
-RUN set -x \
+RUN if [ "$APKMIRROR" != "dl-cdn.alpinelinux.org" ]; then sed -i 's/dl-cdn.alpinelinux.org/'$APKMIRROR'/g' /etc/apk/repositories; fi \
+    && set -x \
 # create nginx user/group first, to be consistent throughout docker variants
     && addgroup -g 101 -S nginx \
     && adduser -S -D -H -u 101 -h /var/cache/nginx -s /sbin/nologin -G nginx -g nginx nginx \
@@ -176,6 +188,8 @@ RUN curl http://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --fil
     # && npm config set registry https://registry.npm.taobao.org \
     && rm -rf /var/cache/apk/* /tmp/* /var/tmp/* \
     && rm -f /etc/nginx/conf.d/default.conf.apk-new && rm -f /etc/nginx/nginx.conf.apk-new \
+    && if [ "$APKMIRROR" != "dl-cdn.alpinelinux.org" ]; then sed -i 's/'$APKMIRROR'/dl-cdn.alpinelinux.org/g' /etc/apk/repositories; fi \
+    && set -ex \
     && setcap 'cap_net_bind_service=+ep' /usr/local/bin/php \
     && mkdir -p /var/log/supervisor \
     && chmod +x /start.sh

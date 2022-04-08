@@ -2,6 +2,12 @@
 
 # Disable Strict Host checking for non interactive git clones
 
+# Set PHP composer mirror. China php composer mirror: https://mirrors.cloud.tencent.com/composer/
+if [[ "$COMPOSERMIRROR" != "" ]]; then composer config -g repos.packagist composer ${COMPOSERMIRROR}; fi
+
+# Set npm mirror. China npm mirror: https://registry.npm.taobao.org
+if [[ "$NPMMIRROR" != "" ]]; then npm config set registry ${NPMMIRROR}; fi
+
 # Set custom webroot
 if [ ! -z "$WEBROOT" ]; then
  sed -i "s#root /var/www/html;#root ${WEBROOT};#g" /etc/nginx/conf.d/default.conf
