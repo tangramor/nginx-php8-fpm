@@ -3,10 +3,10 @@
 Based on php:8-fpm-alpine3.15, node:17-alpine3.15 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
 Tags:
-* latest, php8.1.4_node17.8
-* php8.1.3_node17
-* php8.0.13_node17
-* php8_node15
+* latest, php8.1.4_node17.8 (2022-04-10)
+* php8.1.3_node17 (2022-03-07)
+* php8.0.13_node17 (2022-03-07)
+* php8_node15 (2022-03-07)
 
 **NOTE** If you are upgrading from PHP 8.0 to 8.1, you may need to run `composer update` to upgrade php packages, because some packages under 8.0 are not supported in 8.1
 
