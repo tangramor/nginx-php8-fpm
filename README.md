@@ -3,7 +3,8 @@
 Based on php:8-fpm-alpine3.15, node:17-alpine3.15 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
 Tags:
-* latest, php8.1.3_node17
+* latest, php8.1.4_node17.8
+* php8.1.3_node17
 * php8.0.13_node17
 * php8_node15
 
