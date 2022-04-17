@@ -98,8 +98,8 @@ ENV TZ Asia/Shanghai
 
 # China php composer mirror: https://mirrors.cloud.tencent.com/composer/
 ENV COMPOSERMIRROR="https://mirrors.cloud.tencent.com/composer/"
-# China npm mirror: https://registry.npm.taobao.org
-ENV NPMMIRROR="https://registry.npm.taobao.org"
+# China npm mirror: https://registry.npmmirror.com
+ENV NPMMIRROR="https://registry.npmmirror.com"
 
 # start.sh will replace default web root from /var/www/html to $WEBROOT
 ENV WEBROOT /var/www/html/public
@@ -116,7 +116,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && apk add --no-cache --virtual .build-deps gcc g++ libc-dev make \
     # set preferred npm mirror
     && cd /usr/local \
-    && npm config set registry https://registry.npm.taobao.org \
+    && npm config set registry https://registry.npmmirror.com \
     && cd /var/www/html \
     # install node modules
     && npm install \
@@ -155,7 +155,7 @@ services:
             PHP_REDIS_SESSION_HOST: 'redis'
             CREATE_LARAVEL_STORAGE: '1'
             COMPOSERMIRROR: 'https://mirrors.cloud.tencent.com/composer/'
-            NPMMIRROR: 'https://registry.npm.taobao.org'
+            NPMMIRROR: 'https://registry.npmmirror.com'
         ports:
             - '${APP_PORT:-80}:80'
         extra_hosts:
