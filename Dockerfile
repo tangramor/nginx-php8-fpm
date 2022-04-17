@@ -16,7 +16,7 @@ ENV TZ=Asia/Shanghai
 
 # China php composer mirror: https://mirrors.cloud.tencent.com/composer/
 ENV COMPOSERMIRROR=""
-# China npm mirror: https://registry.npm.taobao.org
+# China npm mirror: https://registry.npmmirror.com
 ENV NPMMIRROR=""
 
 COPY --from=nodejs /opt /opt
@@ -187,7 +187,7 @@ RUN curl http://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --fil
     && npm --version \
     && yarn --version \
     # && cd /usr/local \
-    # && npm config set registry https://registry.npm.taobao.org \
+    # && npm config set registry https://registry.npmmirror.com \
     # && if [ "$NPMMIRROR" != "" ]; then npm config set registry ${NPMMIRROR}; fi \
     && rm -rf /var/cache/apk/* /tmp/* /var/tmp/* \
     && rm -f /etc/nginx/conf.d/default.conf.apk-new && rm -f /etc/nginx/nginx.conf.apk-new \

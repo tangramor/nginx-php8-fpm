@@ -5,7 +5,7 @@
 # Set PHP composer mirror. China php composer mirror: https://mirrors.cloud.tencent.com/composer/
 if [[ "$COMPOSERMIRROR" != "" ]]; then composer config -g repos.packagist composer ${COMPOSERMIRROR}; fi
 
-# Set npm mirror. China npm mirror: https://registry.npm.taobao.org
+# Set npm mirror. China npm mirror: https://registry.npmmirror.com
 if [[ "$NPMMIRROR" != "" ]]; then npm config set registry ${NPMMIRROR}; fi
 
 # Set custom webroot
