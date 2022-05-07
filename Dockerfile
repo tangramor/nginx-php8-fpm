@@ -1,6 +1,6 @@
-FROM node:17-alpine3.15 AS nodejs
+FROM node:18.1.0-alpine3.15 AS nodejs
 
-FROM php:8.1.4-fpm-alpine3.15
+FROM php:8.1.5-fpm-alpine3.15
 
 LABEL org.opencontainers.image.authors="Wang Junhua(tangramor@gmail.com)"
 LABEL org.opencontainers.image.url="https://www.github.com/tangramor/nginx-php8-fpm"
