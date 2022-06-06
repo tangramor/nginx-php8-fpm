@@ -1,6 +1,6 @@
-FROM node:18.1.0-alpine3.15 AS nodejs
+FROM node:18.2.0-alpine3.15 AS nodejs
 
-FROM php:8.1.5-fpm-alpine3.15
+FROM php:8.1.6-fpm-alpine3.15
 
 LABEL org.opencontainers.image.authors="Wang Junhua(tangramor@gmail.com)"
 LABEL org.opencontainers.image.url="https://www.github.com/tangramor/nginx-php8-fpm"
@@ -29,14 +29,35 @@ COPY conf/default.conf /etc/nginx/conf.d/default.conf
 COPY start.sh /start.sh
 
 ENV PHP_MODULE_DEPS zlib-dev libmemcached-dev cyrus-sasl-dev libpng-dev libxml2-dev krb5-dev curl-dev icu-dev libzip-dev openldap-dev imap-dev postgresql-dev
+# ENV MUSL_LOCALE_DEPS cmake make musl-dev gcc gettext-dev libintl 
+# ENV MUSL_LOCPATH /usr/share/i18n/locales/musl
 
 ENV NGINX_VERSION 1.21.6
-ENV NJS_VERSION   0.7.2
+ENV NJS_VERSION   0.7.4
 ENV PKG_RELEASE   1
 
 RUN if [ "$APKMIRROR" != "dl-cdn.alpinelinux.org" ]; then sed -i 's/dl-cdn.alpinelinux.org/'$APKMIRROR'/g' /etc/apk/repositories; fi \
     && set -x \
     && apk update \
+# add utf-8 locale support
+    # && apk add --no-cache $MUSL_LOCALE_DEPS \
+    # && wget https://gitlab.com/rilian-la-te/musl-locales/-/archive/master/musl-locales-master.zip \
+    # && unzip musl-locales-master.zip \
+    # && cd musl-locales-master \
+    # && cmake -DLOCALE_PROFILE=OFF -D CMAKE_INSTALL_PREFIX:PATH=/usr . && make && make install \
+    # && cd .. && rm -rf musl-locales-master* \
+# add locale support by glibc
+    # && wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
+    # && wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-2.35-r0.apk \
+    # && wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-bin-2.35-r0.apk \
+    # && wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-i18n-2.35-r0.apk \
+    # && apk add --allow-untrusted glibc-2.35-r0.apk glibc-bin-2.35-r0.apk glibc-i18n-2.35-r0.apk \
+    # && /usr/glibc-compat/bin/localedef -i en_US -f UTF-8 en_US.UTF-8 \
+    # && rm -f *.apk \
+    # && echo "export PATH=/usr/glibc-compat/bin:$PATH" >> ~/.bashrc \
+# set default locale
+    # && echo "export LANG=en_US.UTF-8" >> ~/.bashrc \
+    # && echo "export LC_ALL=en_US.UTF-8" >> ~/.bashrc \
 # create nginx user/group first, to be consistent throughout docker variants
     && addgroup -g 101 -S nginx \
     && adduser -S -D -H -u 101 -h /var/cache/nginx -s /sbin/nologin -G nginx -g nginx nginx \
