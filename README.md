@@ -1,9 +1,12 @@
 # Nginx + php-fpm (v8) + nodejs
 
-Based on php:8.1.6-fpm-alpine3.15, node:18.2.0-alpine3.15 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
+Based on php:8.1.8-fpm-alpine3.16, node:18.4.0-alpine3.16 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
+
+Since `php8.1.8_node18.4.0`, PHP `amqp` module is added.
 
 Tags:
-* latest, php8.1.6_node18.2.0 (2022-06-06)
+* latest, php8.1.8_node18.4.0 (2022-07-08 alpine3.16)
+* php8.1.6_node18.2.0 (2022-06-06 alpine3.15)
 * php8.1.5_node18.1.0 (2022-05-07)
 * php8.1.4_node17.8 (2022-04-10)
 * php8.1.3_node17 (2022-03-07)
@@ -12,6 +15,19 @@ Tags:
 
 **NOTE** If you are upgrading from PHP 8.0 to 8.1, you may need to run `composer update` to upgrade php packages, because some packages under 8.0 are not supported in 8.1
 
+```
+# php -v
+PHP 8.1.8 (cli) (built: Jul  7 2022 22:52:25) (NTS)
+Copyright (c) The PHP Group
+Zend Engine v4.1.8, Copyright (c) Zend Technologies
+    with Zend OPcache v8.1.8, Copyright (c), by Zend Technologies
+
+# node -v
+v18.4.0
+
+# nginx -v
+nginx version: nginx/1.23.0
+```
 
 ## PHP Modules
 
@@ -20,6 +36,7 @@ In this image it contains following PHP modules:
 ```
 # php -m
 [PHP Modules]
+amqp
 bcmath
 Core
 ctype
