@@ -3,6 +3,7 @@
 Based on php:8.1.9-fpm-alpine3.16, node:18.7.0-alpine3.16 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
 Since `php8.1.8_node18.4.0`, PHP `amqp` module is added.
+Since `php8.1.9_node18.7.0`, PHP `swoole` module is added.
 
 Tags:
 * latest, php8.1.9_node18.7.0 (2022-08-11 alpine3.16)

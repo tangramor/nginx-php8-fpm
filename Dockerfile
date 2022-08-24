@@ -23,6 +23,7 @@ COPY --from=nodejs /opt /opt
 COPY --from=nodejs /usr/local /usr/local
 
 COPY conf/supervisord.conf /etc/supervisord.conf
+COPY conf/php-fpm.conf /etc/supervisor/conf.d/php-fpm.conf
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 COPY conf/default.conf /etc/nginx/conf.d/default.conf
 
@@ -199,6 +200,7 @@ RUN curl http://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --fil
     && docker-php-ext-enable sockets \
     && pecl install msgpack && docker-php-ext-enable msgpack \
     && pecl install igbinary && docker-php-ext-enable igbinary \
+    && pecl install swoole && docker-php-ext-enable swoole \
     && printf "\n\n\n\n\n\n\n\n\n\n" | pecl install memcached \
     && docker-php-ext-enable memcached \
     && rm -rf /tmp/pear \
