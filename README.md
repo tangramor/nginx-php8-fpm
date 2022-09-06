@@ -20,13 +20,13 @@ Tags:
 
 ```
 # php -v
-PHP 8.1.9 (cli) (built: Aug  9 2022 21:52:05) (NTS)
+PHP 8.1.10 (cli) (built: Sep  1 2022 21:43:31) (NTS)
 Copyright (c) The PHP Group
-Zend Engine v4.1.9, Copyright (c) Zend Technologies
-    with Zend OPcache v8.1.9, Copyright (c), by Zend Technologies
+Zend Engine v4.1.10, Copyright (c) Zend Technologies
+    with Zend OPcache v8.1.10, Copyright (c), by Zend Technologies
 
 # node -v
-v18.7.0
+v18.8.0
 
 # nginx -v
 nginx version: nginx/1.23.1
