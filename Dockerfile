@@ -1,6 +1,6 @@
-FROM node:18.8.0-alpine3.16 AS nodejs
+FROM node:18.10.0-alpine3.16 AS nodejs
 
-FROM php:8.1.10-fpm-alpine3.16
+FROM php:8.1.11-fpm-alpine3.16
 
 LABEL org.opencontainers.image.authors="Wang Junhua(tangramor@gmail.com)"
 LABEL org.opencontainers.image.url="https://www.github.com/tangramor/nginx-php8-fpm"
@@ -34,7 +34,7 @@ ENV PHP_MODULE_DEPS gcc make libc-dev rabbitmq-c-dev zlib-dev libmemcached-dev c
 # ENV MUSL_LOCPATH /usr/share/i18n/locales/musl
 
 ENV NGINX_VERSION 1.23.1
-ENV NJS_VERSION   0.7.6
+ENV NJS_VERSION   0.7.7
 ENV PKG_RELEASE   1
 
 RUN if [ "$APKMIRROR" != "dl-cdn.alpinelinux.org" ]; then sed -i 's/dl-cdn.alpinelinux.org/'$APKMIRROR'/g' /etc/apk/repositories; fi \
