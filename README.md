@@ -1,12 +1,13 @@
 # Nginx + php-fpm (v8) + nodejs
 
-Based on php:8.1.11-fpm-alpine3.16, node:18.10.0-alpine3.16 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
+Based on php:8.1.12-fpm-alpine3.16, node:19.0.0-alpine3.16 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
-Since `php8.1.8_node18.4.0`, PHP `amqp` module is added.
-Since `php8.1.10_node18.8.0`, PHP `swoole` module is added.
+* Since `php8.1.8_node18.4.0`, PHP `amqp` module is added.
+* Since `php8.1.10_node18.8.0`, PHP `swoole` module is added.
 
-Tags:
-* latest, php8.1.11_node18.10.0 (2022-10-13 alpine3.16)
+**Tags:**
+* latest, php8.1.12_node19.0.0 (2022-11-07 alpine3.16)
+* php8.1.11_node18.10.0 (2022-10-13 alpine3.16)
 * php8.1.10_node18.8.0 (2022-09-06 alpine3.16)
 * php8.1.9_node18.7.0 (2022-08-11 alpine3.16)
 * php8.1.8_node18.4.0 (2022-07-08 alpine3.16)
@@ -21,16 +22,16 @@ Tags:
 
 ```
 # php -v
-PHP 8.1.11 (cli) (built: Oct  6 2022 23:53:25) (NTS)
+PHP 8.1.12 (cli) (built: Oct 28 2022 18:58:22) (NTS)
 Copyright (c) The PHP Group
-Zend Engine v4.1.11, Copyright (c) Zend Technologies
-    with Zend OPcache v8.1.11, Copyright (c), by Zend Technologies
+Zend Engine v4.1.12, Copyright (c) Zend Technologies
+    with Zend OPcache v8.1.12, Copyright (c), by Zend Technologies
 
 # node -v
-v18.10.0
+v19.0.0 
 
 # nginx -v
-nginx version: nginx/1.23.1
+nginx version: nginx/1.23.2
 ```
 
 ## PHP Modules
@@ -41,37 +42,37 @@ In this image it contains following PHP modules:
 # php -m
 [PHP Modules]
 amqp
-bcmath
+bcmath       
 Core
-ctype
+ctype        
 curl
 date
 dom
-fileinfo
-filter
+fileinfo     
+filter       
 ftp
 gd
 hash
-iconv
-igbinary
+iconv        
+igbinary     
 imap
 intl
 json
 ldap
-libxml
-mbstring
-memcached
-msgpack
-mysqli
-mysqlnd
-openssl
+libxml       
+mbstring     
+memcached    
+msgpack      
+mysqli       
+mysqlnd      
+openssl      
 pcre
 PDO
-pdo_mysql
-pdo_pgsql
-pdo_sqlite
+pdo_mysql    
+pdo_pgsql    
+pdo_sqlite   
 pgsql
-Phar
+Phar 
 posix
 readline
 redis
