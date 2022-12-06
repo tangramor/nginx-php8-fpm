@@ -1,12 +1,14 @@
 # Nginx + php-fpm (v8) + nodejs
 
-Based on php:8.1.12-fpm-alpine3.16, node:19.0.0-alpine3.16 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
+Based on php:8.1.13-fpm-alpine3.16, node:19.2.0-alpine3.16 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
 * Since `php8.1.8_node18.4.0`, PHP `amqp` module is added.
 * Since `php8.1.10_node18.8.0`, PHP `swoole` module is added.
+* Since `php8.1.12`, added `_withoutNodejs` build for some pure PHP API frameworks like [Lumen](https://lumen.laravel.com)
 
 **Tags:**
-* latest, php8.1.12_node19.0.0 (2022-11-07 alpine3.16)
+* latest, php8.1.13_node19.2.0, php8.1.13_withoutNodejs (2022-12-06 alpine3.16)
+* php8.1.12_node19.0.0, php8.1.12_withoutNodejs (2022-11-07 alpine3.16)
 * php8.1.11_node18.10.0 (2022-10-13 alpine3.16)
 * php8.1.10_node18.8.0 (2022-09-06 alpine3.16)
 * php8.1.9_node18.7.0 (2022-08-11 alpine3.16)
@@ -22,13 +24,13 @@ Based on php:8.1.12-fpm-alpine3.16, node:19.0.0-alpine3.16 (nodejs is not includ
 
 ```
 # php -v
-PHP 8.1.12 (cli) (built: Oct 28 2022 18:58:22) (NTS)
+PHP 8.1.13 (cli) (built: Nov 29 2022 03:02:39) (NTS)
 Copyright (c) The PHP Group
-Zend Engine v4.1.12, Copyright (c) Zend Technologies
-    with Zend OPcache v8.1.12, Copyright (c), by Zend Technologies
+Zend Engine v4.1.13, Copyright (c) Zend Technologies
+    with Zend OPcache v8.1.13, Copyright (c), by Zend Technologies
 
 # node -v
-v19.0.0 
+v19.2.0 
 
 # nginx -v
 nginx version: nginx/1.23.2
