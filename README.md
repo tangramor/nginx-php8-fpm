@@ -1,13 +1,14 @@
 # Nginx + php-fpm (v8) + nodejs
 
-Based on php:8.1.13-fpm-alpine3.16, node:19.2.0-alpine3.16 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
+Based on php:8.2.0-fpm-alpine3.17, node:19.3.0-alpine3.17 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
 * Since `php8.1.8_node18.4.0`, PHP `amqp` module is added.
 * Since `php8.1.10_node18.8.0`, PHP `swoole` module is added.
 * Since `php8.1.12`, added `_withoutNodejs` build for some pure PHP API frameworks like [Lumen](https://lumen.laravel.com)
 
 **Tags:**
-* latest, php8.1.13_node19.2.0, php8.1.13_withoutNodejs (2022-12-06 alpine3.16)
+* latest, php8.2.0_node19.3.0, php8.2.0_withoutNodejs (2023-01-05 alpine3.17) **Note: PHP version is 8.2 now!**
+* php8.1.13_node19.2.0, php8.1.13_withoutNodejs (2022-12-06 alpine3.16)
 * php8.1.12_node19.0.0, php8.1.12_withoutNodejs (2022-11-07 alpine3.16)
 * php8.1.11_node18.10.0 (2022-10-13 alpine3.16)
 * php8.1.10_node18.8.0 (2022-09-06 alpine3.16)
@@ -20,20 +21,20 @@ Based on php:8.1.13-fpm-alpine3.16, node:19.2.0-alpine3.16 (nodejs is not includ
 * php8.0.13_node17 (2022-03-07)
 * php8_node15 (2022-03-07)
 
-**NOTE** If you are upgrading from PHP 8.0 to 8.1, you may need to run `composer update` to upgrade php packages, because some packages under 8.0 are not supported in 8.1
+**NOTE** If you are upgrading from PHP **8.0 to 8.1** or from **8.1 to 8.2**, you may need to run `composer update` to upgrade php packages, because some packages under 8.0/8.1 are not supported in 8.1/8.2
 
 ```
 # php -v
-PHP 8.1.13 (cli) (built: Nov 29 2022 03:02:39) (NTS)
+PHP 8.2.0 (cli) (built: Dec  8 2022 20:06:26) (NTS)
 Copyright (c) The PHP Group
-Zend Engine v4.1.13, Copyright (c) Zend Technologies
-    with Zend OPcache v8.1.13, Copyright (c), by Zend Technologies
+Zend Engine v4.2.0, Copyright (c) Zend Technologies
+    with Zend OPcache v8.2.0, Copyright (c), by Zend Technologies
 
 # node -v
-v19.2.0 
+v19.3.0
 
 # nginx -v
-nginx version: nginx/1.23.2
+nginx version: nginx/1.23.3
 ```
 
 ## PHP Modules
@@ -44,38 +45,39 @@ In this image it contains following PHP modules:
 # php -m
 [PHP Modules]
 amqp
-bcmath       
+bcmath
 Core
-ctype        
+ctype
 curl
 date
 dom
-fileinfo     
-filter       
+fileinfo
+filter
 ftp
 gd
 hash
-iconv        
-igbinary     
+iconv
+igbinary
 imap
 intl
 json
 ldap
-libxml       
-mbstring     
-memcached    
-msgpack      
-mysqli       
-mysqlnd      
-openssl      
+libxml
+mbstring
+memcached
+msgpack
+mysqli
+mysqlnd
+openssl
 pcre
 PDO
-pdo_mysql    
-pdo_pgsql    
-pdo_sqlite   
+pdo_mysql
+pdo_pgsql
+pdo_sqlite
 pgsql
-Phar 
+Phar
 posix
+random
 readline
 redis
 Reflection
