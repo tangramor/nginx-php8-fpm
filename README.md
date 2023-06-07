@@ -1,13 +1,14 @@
 # Nginx + php-fpm (v8) + nodejs
 
-Based on php:8.2.5-fpm-alpine3.17, node:20.1.0-alpine3.17 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
+Based on php:8.2.6-fpm-alpine3.17, node:20.2.0-alpine3.17 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
 * Since `php8.1.8_node18.4.0`, PHP `amqp` module is added.
 * Since `php8.1.10_node18.8.0`, PHP `swoole` module is added.
 * Since `php8.1.12`, added `_withoutNodejs` build for some pure PHP API frameworks like [Lumen](https://lumen.laravel.com)
 
 **Tags:**
-* latest, php8.2.5_node20.1.0, php8.2.5_withoutNodejs (2023-05-08 alpine3.17)
+* latest, php8.2.6_node20.2.0, php8.2.6_withoutNodejs (2023-06-07 alpine3.17)
+* php8.2.5_node20.1.0, php8.2.5_withoutNodejs (2023-05-08 alpine3.17)
 * php8.2.4_node19.8.1, php8.2.4_withoutNodejs (2023-04-10 alpine3.17)
 * php8.2.3_node19.7.0, php8.2.3_withoutNodejs (2023-03-06 alpine3.17)
 * php8.2.2_node19.6.0, php8.2.2_withoutNodejs (2023-02-06 alpine3.17)
