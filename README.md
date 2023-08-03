@@ -1,13 +1,15 @@
 # Nginx + php-fpm (v8) + nodejs
 
-Based on php:8.2.7-fpm-alpine3.17, node:20.3.1-alpine3.17 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
+Based on php:8.2.8-fpm-alpine3.17, node:20.5.0-alpine3.17 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
+* Since `php8.2.8_node20.5.0`, PHP `mongodb` module is added and `GD` module's JPEG and FreeType support are enabled.
 * Since `php8.1.8_node18.4.0`, PHP `amqp` module is added.
 * Since `php8.1.10_node18.8.0`, PHP `swoole` module is added.
 * Since `php8.1.12`, added `_withoutNodejs` build for some pure PHP API frameworks like [Lumen](https://lumen.laravel.com)
 
 **Tags:**
-* latest, php8.2.7_node20.3.1, php8.2.7_withoutNodejs (2023-07-03 alpine3.17)
+* latest, php8.2.8_node20.5.0, php8.2.8_withoutNodejs (2023-08-03 alpine3.17)
+* php8.2.7_node20.3.1, php8.2.7_withoutNodejs (2023-07-03 alpine3.17)
 * php8.2.6_node20.2.0, php8.2.6_withoutNodejs (2023-06-07 alpine3.17)
 * php8.2.5_node20.1.0, php8.2.5_withoutNodejs (2023-05-08 alpine3.17)
 * php8.2.4_node19.8.1, php8.2.4_withoutNodejs (2023-04-10 alpine3.17)
@@ -31,13 +33,13 @@ Based on php:8.2.7-fpm-alpine3.17, node:20.3.1-alpine3.17 (nodejs is not include
 
 ```
 # php -v
-PHP 8.2.7 (cli) (built: Jun 15 2023 01:12:02) (NTS)
+PHP 8.2.8 (cli) (built: Jul 10 2023 22:35:33) (NTS)
 Copyright (c) The PHP Group
-Zend Engine v4.2.7, Copyright (c) Zend Technologies
-    with Zend OPcache v8.2.7, Copyright (c), by Zend Technologies
+Zend Engine v4.2.8, Copyright (c) Zend Technologies
+    with Zend OPcache v8.2.8, Copyright (c), by Zend Technologies
 
 # node -v
-v20.3.1
+v20.5.0
 
 # nginx -v
 nginx version: nginx/1.25.1
@@ -57,6 +59,7 @@ ctype
 curl
 date
 dom
+exif
 fileinfo
 filter
 ftp
@@ -71,6 +74,7 @@ ldap
 libxml
 mbstring
 memcached
+mongodb
 msgpack
 mysqli
 mysqlnd
@@ -106,6 +110,10 @@ zlib
 
 [Zend Modules]
 Zend OPcache
+
+
+# php -r "echo sprintf(\"GD SUPPORT %s\n\", json_encode(gd_info()));"
+GD SUPPORT {"GD Version":"bundled (2.1.0 compatible)","FreeType Support":true,"FreeType Linkage":"with freetype","GIF Read Support":true,"GIF Create Support":true,"JPEG Support":true,"PNG Support":true,"WBMP Support":true,"XPM Support":false,"XBM Support":true,"WebP Support":true,"BMP Support":true,"AVIF Support":false,"TGA Read Support":true,"JIS-mapped Japanese Font Support":false}
 ```
 
 ## How to use
@@ -279,12 +287,12 @@ volumes:
 
 ### Add extra PHP modules
 
-You may use this image as the base image to build your own. For example, to add `mongodb` module:
+You may use this image as the base image to build your own. For example, to add `mongodb` module in images before **php8.2.8_node20.5.0**:
 
 - Create a `Dockerfile`
 
 ```dockerfile
-FROM tangramor/nginx-php8-fpm
+FROM tangramor/nginx-php8-fpm:php8.2.7_node20.3.1
 
 RUN apk add --no-cache --update --virtual .phpize-deps $PHPIZE_DEPS \
     && apk add --no-cache --update --virtual .all-deps $PHP_MODULE_DEPS \
