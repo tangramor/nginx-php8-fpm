@@ -1,4 +1,4 @@
-FROM php:8.2.12-fpm-alpine3.18
+FROM php:8.3.0-fpm-alpine3.18
 
 LABEL org.opencontainers.image.authors="Wang Junhua(tangramor@gmail.com)"
 LABEL org.opencontainers.image.url="https://www.github.com/tangramor/nginx-php8-fpm"

@@ -1,6 +1,6 @@
 # Nginx + php-fpm (v8) + nodejs
 
-Based on php:8.2.12-fpm-alpine3.18, node:21.1.0-alpine3.18 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
+Based on php:8.3.0-fpm-alpine3.18, node:21.3.0-alpine3.18 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
 * Since `php8.2.8_node20.5.0`, PHP `mongodb` module is added and `GD` module's JPEG and FreeType support are enabled.
 * Since `php8.1.8_node18.4.0`, PHP `amqp` module is added.
@@ -8,7 +8,8 @@ Based on php:8.2.12-fpm-alpine3.18, node:21.1.0-alpine3.18 (nodejs is not includ
 * Since `php8.1.12`, added `_withoutNodejs` build for some pure PHP API frameworks like [Lumen](https://lumen.laravel.com)
 
 **Tags:**
-* latest, php8.2.12_node21.1.0, php8.2.12_withoutNodejs (2023-11-03 alpine3.18)
+* latest, php8.3.0_node21.3.0, php8.3.0_withoutNodejs (2023-12-04 alpine3.18) **Note: PHP version is 8.3 now!**
+* php8.2.12_node21.1.0, php8.2.12_withoutNodejs (2023-11-03 alpine3.18)
 * php8.2.11_node20.8.0, php8.2.11_withoutNodejs (2023-10-09 alpine3.18)
 * php8.2.10_node20.6.0, php8.2.10_withoutNodejs (2023-09-08 alpine3.18)
 * php8.2.8_node20.5.0, php8.2.8_withoutNodejs (2023-08-03 alpine3.17)
@@ -32,17 +33,17 @@ Based on php:8.2.12-fpm-alpine3.18, node:21.1.0-alpine3.18 (nodejs is not includ
 * php8.0.13_node17 (2022-03-07)
 * php8_node15 (2022-03-07)
 
-**NOTE** If you are upgrading from PHP **8.0 to 8.1** or from **8.1 to 8.2**, you may need to run `composer update` to upgrade php packages, because some packages under 8.0/8.1 are not supported in 8.1/8.2
+**NOTE** If you are upgrading from PHP **8.0 to 8.1**, **8.1 to 8.2** or **8.2 to 8.3**, you may need to run `composer update` to upgrade php packages, because some packages under 8.0/8.1/8.2 are not supported in 8.1/8.2/8.3
 
 ```
 # php -v
-PHP 8.2.12 (cli) (built: Oct 28 2023 02:10:03) (NTS)
+PHP 8.3.0 (cli) (built: Nov 30 2023 23:39:07) (NTS)
 Copyright (c) The PHP Group
-Zend Engine v4.2.12, Copyright (c) Zend Technologies
-    with Zend OPcache v8.2.12, Copyright (c), by Zend Technologies
+Zend Engine v4.3.0, Copyright (c) Zend Technologies
+    with Zend OPcache v8.3.0, Copyright (c), by Zend Technologies
 
 # node -v
-v21.1.0
+v21.3.0
 
 # nginx -v
 nginx version: nginx/1.25.3
