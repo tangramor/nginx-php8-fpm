@@ -1,6 +1,6 @@
 # Nginx + php-fpm (v8) + nodejs
 
-Based on php:8.3.0-fpm-alpine3.18, node:21.3.0-alpine3.18 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
+Based on php:8.3.1-fpm-alpine3.18, node:21.5.0-alpine3.18 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
 * Since `php8.2.8_node20.5.0`, PHP `mongodb` module is added and `GD` module's JPEG and FreeType support are enabled.
 * Since `php8.1.8_node18.4.0`, PHP `amqp` module is added.
@@ -8,7 +8,8 @@ Based on php:8.3.0-fpm-alpine3.18, node:21.3.0-alpine3.18 (nodejs is not include
 * Since `php8.1.12`, added `_withoutNodejs` build for some pure PHP API frameworks like [Lumen](https://lumen.laravel.com)
 
 **Tags:**
-* latest, php8.3.0_node21.3.0, php8.3.0_withoutNodejs (2023-12-04 alpine3.18) **Note: PHP version is 8.3 now!**
+* latest, php8.3.1_node21.5.0, php8.3.1_withoutNodejs (2024-01-03 alpine3.18)
+* php8.3.0_node21.3.0, php8.3.0_withoutNodejs (2023-12-04 alpine3.18) **Note: PHP version is 8.3 now!**
 * php8.2.12_node21.1.0, php8.2.12_withoutNodejs (2023-11-03 alpine3.18)
 * php8.2.11_node20.8.0, php8.2.11_withoutNodejs (2023-10-09 alpine3.18)
 * php8.2.10_node20.6.0, php8.2.10_withoutNodejs (2023-09-08 alpine3.18)
@@ -37,13 +38,13 @@ Based on php:8.3.0-fpm-alpine3.18, node:21.3.0-alpine3.18 (nodejs is not include
 
 ```
 # php -v
-PHP 8.3.0 (cli) (built: Nov 30 2023 23:39:07) (NTS)
+PHP 8.3.1 (cli) (built: Dec 27 2023 23:18:21) (NTS)
 Copyright (c) The PHP Group
-Zend Engine v4.3.0, Copyright (c) Zend Technologies
-    with Zend OPcache v8.3.0, Copyright (c), by Zend Technologies
+Zend Engine v4.3.1, Copyright (c) Zend Technologies
+    with Zend OPcache v8.3.1, Copyright (c), by Zend Technologies
 
 # node -v
-v21.3.0
+v21.5.0
 
 # nginx -v
 nginx version: nginx/1.25.3
@@ -122,7 +123,7 @@ GD SUPPORT {"GD Version":"bundled (2.1.0 compatible)","FreeType Support":true,"F
 
 ## How to use
 
-For example, use this docker image to deploy a **Laravel 9** project.
+For example, use this docker image to deploy a **Laravel 10** project.
 
 Dockerfile:
 
@@ -189,7 +190,7 @@ You may check [start.sh](https://github.com/tangramor/nginx-php8-fpm/blob/master
 
 ### Develop with this image
 
-Another example to develop with this image for a **Laravel 9** project, you may modify the `docker-compose.yml` of your project.
+Another example to develop with this image for a **Laravel 10** project, you may modify the `docker-compose.yml` of your project.
 
 Here we only modified fields `image` and `environment` under `services -> laravel.test`.
 
@@ -200,6 +201,8 @@ Make sure you have correct environment parameters set:
 version: '3'
 services:
     laravel.test:
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
         image: tangramor/nginx-php8-fpm
         environment:
             TZ: 'Asia/Shanghai'
@@ -207,11 +210,9 @@ services:
             PHP_REDIS_SESSION_HOST: 'redis'
             CREATE_LARAVEL_STORAGE: '1'
             COMPOSERMIRROR: 'https://mirrors.cloud.tencent.com/composer/'
-            NPMMIRROR: 'https://registry.npmmirror.com'
+            NPMMIRROR: 'https://registry.npm.taobao.org'
         ports:
-            - '${APP_PORT:-80}:80'
-        extra_hosts:
-            - 'host.docker.internal:host-gateway'
+            - '${APP_PORT:-8888}:80'
         volumes:
             - '.:/var/www/html'
         networks:
@@ -224,7 +225,7 @@ services:
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
-            - '${FORWARD_DB_PORT:-3306}:3306'
+            - '${FORWARD_DB_PORT:-13306}:3306'
         environment:
             MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ROOT_HOST: "%"
