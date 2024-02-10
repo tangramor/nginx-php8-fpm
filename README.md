@@ -1,6 +1,6 @@
 # Nginx + php-fpm (v8) + nodejs
 
-Based on php:8.3.1-fpm-alpine3.18, node:21.5.0-alpine3.18 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
+Based on php:8.3.2-fpm-alpine3.19, node:21.6.1-alpine3.19 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
 * Since `php8.2.8_node20.5.0`, PHP `mongodb` module is added and `GD` module's JPEG and FreeType support are enabled.
 * Since `php8.1.8_node18.4.0`, PHP `amqp` module is added.
@@ -8,7 +8,8 @@ Based on php:8.3.1-fpm-alpine3.18, node:21.5.0-alpine3.18 (nodejs is not include
 * Since `php8.1.12`, added `_withoutNodejs` build for some pure PHP API frameworks like [Lumen](https://lumen.laravel.com)
 
 **Tags:**
-* latest, php8.3.1_node21.5.0, php8.3.1_withoutNodejs (2024-01-03 alpine3.18)
+* latest, php8.3.2_node21.6.1, php8.3.2_withoutNodejs (2024-02-10 alpine3.19)
+* php8.3.1_node21.5.0, php8.3.1_withoutNodejs (2024-01-03 alpine3.18)
 * php8.3.0_node21.3.0, php8.3.0_withoutNodejs (2023-12-04 alpine3.18) **Note: PHP version is 8.3 now!**
 * php8.2.12_node21.1.0, php8.2.12_withoutNodejs (2023-11-03 alpine3.18)
 * php8.2.11_node20.8.0, php8.2.11_withoutNodejs (2023-10-09 alpine3.18)
