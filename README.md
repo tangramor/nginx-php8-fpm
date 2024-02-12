@@ -39,13 +39,13 @@ Based on php:8.3.2-fpm-alpine3.19, node:21.6.1-alpine3.19 (nodejs is not include
 
 ```
 # php -v
-PHP 8.3.1 (cli) (built: Dec 27 2023 23:18:21) (NTS)
+PHP 8.3.2 (cli) (built: Jan 27 2024 04:30:03) (NTS)
 Copyright (c) The PHP Group
-Zend Engine v4.3.1, Copyright (c) Zend Technologies
-    with Zend OPcache v8.3.1, Copyright (c), by Zend Technologies
+Zend Engine v4.3.2, Copyright (c) Zend Technologies
+    with Zend OPcache v8.3.2, Copyright (c), by Zend Technologies
 
 # node -v
-v21.5.0
+v21.6.1
 
 # nginx -v
 nginx version: nginx/1.25.3
@@ -68,7 +68,6 @@ dom
 exif
 fileinfo
 filter
-ftp
 gd
 hash
 iconv
@@ -116,7 +115,6 @@ zlib
 
 [Zend Modules]
 Zend OPcache
-
 
 # php -r "echo sprintf(\"GD SUPPORT %s\n\", json_encode(gd_info()));"
 GD SUPPORT {"GD Version":"bundled (2.1.0 compatible)","FreeType Support":true,"FreeType Linkage":"with freetype","GIF Read Support":true,"GIF Create Support":true,"JPEG Support":true,"PNG Support":true,"WBMP Support":true,"XPM Support":false,"XBM Support":true,"WebP Support":true,"BMP Support":true,"AVIF Support":false,"TGA Read Support":true,"JIS-mapped Japanese Font Support":false}
@@ -202,9 +200,12 @@ Make sure you have correct environment parameters set:
 version: '3'
 services:
     laravel.test:
+        image: tangramor/nginx-php8-fpm
         extra_hosts:
             - 'host.docker.internal:host-gateway'
-        image: tangramor/nginx-php8-fpm
+        ports:
+            - '${APP_PORT:-80}:80'
+            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
         environment:
             TZ: 'Asia/Shanghai'
             WEBROOT: '/var/www/html/public'
@@ -212,8 +213,6 @@ services:
             CREATE_LARAVEL_STORAGE: '1'
             COMPOSERMIRROR: 'https://mirrors.cloud.tencent.com/composer/'
             NPMMIRROR: 'https://registry.npm.taobao.org'
-        ports:
-            - '${APP_PORT:-8888}:80'
         volumes:
             - '.:/var/www/html'
         networks:
@@ -222,24 +221,30 @@ services:
             - mysql
             - redis
             - meilisearch
+            - mailpit
             - selenium
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
-            - '${FORWARD_DB_PORT:-13306}:3306'
+            - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
             MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
-            MYSQL_ROOT_HOST: "%"
+            MYSQL_ROOT_HOST: '%'
             MYSQL_DATABASE: '${DB_DATABASE}'
             MYSQL_USER: '${DB_USERNAME}'
             MYSQL_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ALLOW_EMPTY_PASSWORD: 1
         volumes:
             - 'sail-mysql:/var/lib/mysql'
+            - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
         networks:
             - sail
         healthcheck:
-            test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+            test:
+                - CMD
+                - mysqladmin
+                - ping
+                - '-p${DB_PASSWORD}'
             retries: 3
             timeout: 5s
     redis:
@@ -251,30 +256,42 @@ services:
         networks:
             - sail
         healthcheck:
-            test: ["CMD", "redis-cli", "ping"]
+            test:
+                - CMD
+                - redis-cli
+                - ping
             retries: 3
             timeout: 5s
     meilisearch:
         image: 'getmeili/meilisearch:latest'
         ports:
             - '${FORWARD_MEILISEARCH_PORT:-7700}:7700'
+        environment:
+            MEILI_NO_ANALYTICS: '${MEILISEARCH_NO_ANALYTICS:-false}'
         volumes:
-            - 'sail-meilisearch:/data.ms'
+            - 'sail-meilisearch:/meili_data'
         networks:
             - sail
         healthcheck:
-            test: ["CMD", "wget", "--no-verbose", "--spider",  "http://localhost:7700/health"]
+            test:
+                - CMD
+                - wget
+                - '--no-verbose'
+                - '--spider'
+                - 'http://localhost:7700/health'
             retries: 3
             timeout: 5s
-    mailhog:
-        image: 'mailhog/mailhog:latest'
+    mailpit:
+        image: 'axllent/mailpit:latest'
         ports:
-            - '${FORWARD_MAILHOG_PORT:-1025}:1025'
-            - '${FORWARD_MAILHOG_DASHBOARD_PORT:-8025}:8025'
+            - '${FORWARD_MAILPIT_PORT:-1025}:1025'
+            - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
         networks:
             - sail
     selenium:
-        image: 'selenium/standalone-chrome'
+        image: selenium/standalone-chrome
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
         volumes:
             - '/dev/shm:/dev/shm'
         networks:
