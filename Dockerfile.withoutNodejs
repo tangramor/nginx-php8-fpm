@@ -23,7 +23,7 @@ COPY conf/default.conf /etc/nginx/conf.d/default.conf
 
 COPY start.withoutNodejs.sh /start.sh
 
-ENV PHP_MODULE_DEPS gcc make libc-dev rabbitmq-c-dev zlib-dev libmemcached-dev cyrus-sasl-dev libpng-dev libxml2-dev krb5-dev curl-dev icu-dev libzip-dev openldap-dev imap-dev postgresql-dev libjpeg-turbo-dev freetype-dev libwebp-dev
+ENV PHP_MODULE_DEPS gcc make libc-dev rabbitmq-c-dev zlib-dev libmemcached-dev cyrus-sasl-dev libpng-dev libxml2-dev krb5-dev curl-dev icu-dev libzip-dev openldap-dev imap-dev postgresql-dev libjpeg-turbo-dev freetype-dev libwebp-dev gettext-dev
 # ENV MUSL_LOCALE_DEPS cmake make musl-dev gcc gettext-dev libintl 
 # ENV MUSL_LOCPATH /usr/share/i18n/locales/musl
 
@@ -181,13 +181,13 @@ RUN curl http://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --fil
     && apk add --no-cache libstdc++ mysql-client bash bash-completion shadow linux-headers \
         supervisor git zip unzip coreutils libpng libmemcached-libs krb5-libs icu-libs \
         icu c-client libzip openldap-clients imap postgresql-client postgresql-libs libcap tzdata sqlite \
-        lua-resty-core nginx-mod-http-lua rabbitmq-c \
+        lua-resty-core nginx-mod-http-lua rabbitmq-c gettext \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     && set -xe \
     && apk add --no-cache --update --virtual .phpize-deps $PHPIZE_DEPS \
     && apk add --no-cache --update --virtual .all-deps $PHP_MODULE_DEPS \
     && docker-php-ext-configure gd --with-jpeg --with-freetype --with-webp \
-    && docker-php-ext-install exif sockets gd bcmath intl soap mysqli pdo pdo_mysql pgsql pdo_pgsql zip ldap imap dom opcache \
+    && docker-php-ext-install exif sockets gd bcmath intl soap mysqli pdo pdo_mysql pgsql pdo_pgsql zip ldap imap dom opcache gettext \
     && printf "\n\n" | pecl install amqp \
     && docker-php-ext-enable amqp \
     && printf "\n\n\n\n" | pecl install -o -f redis \
