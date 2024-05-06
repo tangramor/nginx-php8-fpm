@@ -2,6 +2,7 @@
 
 Based on php:8.3.6-fpm-alpine3.19, node:22.1.0-alpine3.19 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
+* Since `php8.3.6_node22.1.0`, PHP `imagick` module is added.
 * Since `php8.2.8_node20.5.0`, PHP `mongodb` module is added and `GD` module's JPEG and FreeType support are enabled.
 * Since `php8.1.8_node18.4.0`, PHP `amqp` module is added.
 * Since `php8.1.10_node18.8.0`, PHP `swoole` module is added.
@@ -76,6 +77,7 @@ gettext
 hash
 iconv
 igbinary
+imagick
 imap
 intl
 json
