@@ -1,6 +1,6 @@
 # Nginx + php-fpm (v8) + nodejs
 
-Based on php:8.3.11-fpm-alpine3.20, node:22.7.0-alpine3.20 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
+Based on php:8.3.12-fpm-alpine3.20, node:22.9.0-alpine3.20 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
 * Since `php8.3.6_node22.1.0`, PHP `imagick` module is added.
 * Since `php8.2.8_node20.5.0`, PHP `mongodb` module is added and `GD` module's JPEG and FreeType support are enabled.
@@ -9,7 +9,8 @@ Based on php:8.3.11-fpm-alpine3.20, node:22.7.0-alpine3.20 (nodejs is not includ
 * Since `php8.1.12`, added `_withoutNodejs` build for some pure PHP API frameworks like [Lumen](https://lumen.laravel.com)
 
 **Tags:**
-* latest, php8.3.11_node22.7.0, php8.3.11_withoutNodejs (2024-09-03 alpine3.20)
+* latest, php8.3.12_node22.9.0, php8.3.12_withoutNodejs (2024-10-08 alpine3.20)
+* php8.3.11_node22.7.0, php8.3.11_withoutNodejs (2024-09-03 alpine3.20)
 * php8.3.10_node22.5.1, php8.3.10_withoutNodejs (2024-08-05 alpine3.20)
 * php8.3.8_node22.4.0, php8.3.8_withoutNodejs (2024-07-04 alpine3.20)
 * php8.3.7_node22.2.0, php8.3.7_withoutNodejs (2024-06-03 alpine3.19)
@@ -47,16 +48,16 @@ Based on php:8.3.11-fpm-alpine3.20, node:22.7.0-alpine3.20 (nodejs is not includ
 
 ```
 # php -v
-PHP 8.3.11 (cli) (built: Aug 30 2024 20:50:42) (NTS)
+PHP 8.3.12 (cli) (built: Sep 26 2024 22:47:47) (NTS)
 Copyright (c) The PHP Group
-Zend Engine v4.3.11, Copyright (c) Zend Technologies
-    with Zend OPcache v8.3.11, Copyright (c), by Zend Technologies
+Zend Engine v4.3.12, Copyright (c) Zend Technologies
+    with Zend OPcache v8.3.12, Copyright (c), by Zend Technologies
 
 # node -v
-v22.7.0
+v22.9.0
 
 # nginx -v
-nginx version: nginx/1.27.1
+nginx version: nginx/1.27.2
 ```
 
 ## PHP Modules
