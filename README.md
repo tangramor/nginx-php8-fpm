@@ -1,6 +1,6 @@
 # Nginx + php-fpm (v8) + nodejs
 
-Based on php:8.3.12-fpm-alpine3.20, node:22.9.0-alpine3.20 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
+Based on php:8.3.13-fpm-alpine3.20, node:22.11.0-alpine3.20 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
 * Since `php8.3.6_node22.1.0`, PHP `imagick` module is added.
 * Since `php8.2.8_node20.5.0`, PHP `mongodb` module is added and `GD` module's JPEG and FreeType support are enabled.
@@ -9,7 +9,8 @@ Based on php:8.3.12-fpm-alpine3.20, node:22.9.0-alpine3.20 (nodejs is not includ
 * Since `php8.1.12`, added `_withoutNodejs` build for some pure PHP API frameworks like [Lumen](https://lumen.laravel.com)
 
 **Tags:**
-* latest, php8.3.12_node22.9.0, php8.3.12_withoutNodejs (2024-10-08 alpine3.20)
+* latest, php8.3.13_node22.11.0, php8.3.13_withoutNodejs (2024-11-04 alpine3.20)
+* php8.3.12_node22.9.0, php8.3.12_withoutNodejs (2024-10-08 alpine3.20)
 * php8.3.11_node22.7.0, php8.3.11_withoutNodejs (2024-09-03 alpine3.20)
 * php8.3.10_node22.5.1, php8.3.10_withoutNodejs (2024-08-05 alpine3.20)
 * php8.3.8_node22.4.0, php8.3.8_withoutNodejs (2024-07-04 alpine3.20)
@@ -48,13 +49,13 @@ Based on php:8.3.12-fpm-alpine3.20, node:22.9.0-alpine3.20 (nodejs is not includ
 
 ```
 # php -v
-PHP 8.3.12 (cli) (built: Sep 26 2024 22:47:47) (NTS)
+PHP 8.3.13 (cli) (built: Oct 28 2024 22:10:57) (NTS)
 Copyright (c) The PHP Group
-Zend Engine v4.3.12, Copyright (c) Zend Technologies
-    with Zend OPcache v8.3.12, Copyright (c), by Zend Technologies
+Zend Engine v4.3.13, Copyright (c) Zend Technologies
+    with Zend OPcache v8.3.13, Copyright (c), by Zend Technologies
 
 # node -v
-v22.9.0
+v22.11.0
 
 # nginx -v
 nginx version: nginx/1.27.2
@@ -200,7 +201,7 @@ You may check [start.sh](https://github.com/tangramor/nginx-php8-fpm/blob/master
 
 ### Develop with this image
 
-Another example to develop with this image for a **Laravel 10** project, you may modify the `docker-compose.yml` of your project.
+Another example to develop with this image for a **Laravel 11** project, you may modify the `docker-compose.yml` of your project.
 
 Here we only modified fields `image` and `environment` under `services -> laravel.test`.
 
@@ -208,7 +209,6 @@ Make sure you have correct environment parameters set:
 
 ```yaml
 # For more information: https://laravel.com/docs/sail
-version: '3'
 services:
     laravel.test:
         image: tangramor/nginx-php8-fpm
@@ -289,7 +289,7 @@ services:
                 - wget
                 - '--no-verbose'
                 - '--spider'
-                - 'http://localhost:7700/health'
+                - 'http://127.0.0.1:7700/health'
             retries: 3
             timeout: 5s
     mailpit:
@@ -300,7 +300,7 @@ services:
         networks:
             - sail
     selenium:
-        image: selenium/standalone-chrome
+        image: selenium/standalone-chromium
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         volumes:
