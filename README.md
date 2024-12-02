@@ -1,7 +1,8 @@
 # Nginx + php-fpm (v8) + nodejs
 
-Based on php:8.3.13-fpm-alpine3.20, node:22.11.0-alpine3.20 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
+Based on php:8.4.1-fpm-alpine3.20, node:23.3.0-alpine3.20 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
+* Since `php8.4.1_node23.3.0`, PHP `brotli` module is added and `swoole` module is removed (it doesn't support 8.4 by now).
 * Since `php8.3.6_node22.1.0`, PHP `imagick` module is added.
 * Since `php8.2.8_node20.5.0`, PHP `mongodb` module is added and `GD` module's JPEG and FreeType support are enabled.
 * Since `php8.1.8_node18.4.0`, PHP `amqp` module is added.
@@ -9,7 +10,8 @@ Based on php:8.3.13-fpm-alpine3.20, node:22.11.0-alpine3.20 (nodejs is not inclu
 * Since `php8.1.12`, added `_withoutNodejs` build for some pure PHP API frameworks like [Lumen](https://lumen.laravel.com)
 
 **Tags:**
-* latest, php8.3.13_node22.11.0, php8.3.13_withoutNodejs (2024-11-04 alpine3.20)
+* latest, php8.4.1_node23.3.0, php8.4.1_withoutNodejs (2024-12-02 alpine3.20) **Note: PHP version is 8.4 now!**
+* php8.3.13_node22.11.0, php8.3.13_withoutNodejs (2024-11-04 alpine3.20)
 * php8.3.12_node22.9.0, php8.3.12_withoutNodejs (2024-10-08 alpine3.20)
 * php8.3.11_node22.7.0, php8.3.11_withoutNodejs (2024-09-03 alpine3.20)
 * php8.3.10_node22.5.1, php8.3.10_withoutNodejs (2024-08-05 alpine3.20)
@@ -45,20 +47,21 @@ Based on php:8.3.13-fpm-alpine3.20, node:22.11.0-alpine3.20 (nodejs is not inclu
 * php8.0.13_node17 (2022-03-07)
 * php8_node15 (2022-03-07)
 
-**NOTE** If you are upgrading from PHP **8.0 to 8.1**, **8.1 to 8.2** or **8.2 to 8.3**, you may need to run `composer update` to upgrade php packages, because some packages under 8.0/8.1/8.2 are not supported in 8.1/8.2/8.3
+**NOTE** If you are upgrading from PHP **8.0 to 8.1**, **8.1 to 8.2**, **8.2 to 8.3** or **8.3 to 8.4**, you may need to run `composer update` to upgrade php packages, because some packages under 8.0/8.1/8.2/8.3 are not supported in 8.1/8.2/8.3/8.4 .
 
 ```
 # php -v
-PHP 8.3.13 (cli) (built: Oct 28 2024 22:10:57) (NTS)
+PHP 8.4.1 (cli) (built: Nov 21 2024 17:58:18) (NTS)
 Copyright (c) The PHP Group
-Zend Engine v4.3.13, Copyright (c) Zend Technologies
-    with Zend OPcache v8.3.13, Copyright (c), by Zend Technologies
+Built by https://github.com/docker-library/php
+Zend Engine v4.4.1, Copyright (c) Zend Technologies
+    with Zend OPcache v8.4.1, Copyright (c), by Zend Technologies
 
 # node -v
-v22.11.0
+v23.3.0
 
 # nginx -v
-nginx version: nginx/1.27.2
+nginx version: nginx/1.27.3
 ```
 
 ## PHP Modules
@@ -66,10 +69,10 @@ nginx version: nginx/1.27.2
 In this image it contains following PHP modules:
 
 ```
-# php -m
 [PHP Modules]
 amqp
 bcmath
+brotli
 Core
 ctype
 curl
@@ -116,7 +119,6 @@ sodium
 SPL
 sqlite3
 standard
-swoole
 tokenizer
 xml
 xmlreader
