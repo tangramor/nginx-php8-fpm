@@ -1,6 +1,6 @@
 # Nginx + php-fpm (v8) + nodejs
 
-Based on php:8.4.1-fpm-alpine3.20, node:23.3.0-alpine3.20 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
+Based on php:8.4.2-fpm-alpine3.20, node:23.5.0-alpine3.20 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
 * Since `php8.4.1_node23.3.0`, PHP `brotli` module is added and `swoole` module is removed (it doesn't support 8.4 by now).
 * Since `php8.3.6_node22.1.0`, PHP `imagick` module is added.
@@ -10,7 +10,8 @@ Based on php:8.4.1-fpm-alpine3.20, node:23.3.0-alpine3.20 (nodejs is not include
 * Since `php8.1.12`, added `_withoutNodejs` build for some pure PHP API frameworks like [Lumen](https://lumen.laravel.com)
 
 **Tags:**
-* latest, php8.4.1_node23.3.0, php8.4.1_withoutNodejs (2024-12-02 alpine3.20) **Note: PHP version is 8.4 now!**
+* latest, php8.4.2_node23.5.0, php8.4.2_withoutNodejs (2025-01-02 alpine3.20)
+* php8.4.1_node23.3.0, php8.4.1_withoutNodejs (2024-12-02 alpine3.20) **Note: PHP version is 8.4 now!**
 * php8.3.13_node22.11.0, php8.3.13_withoutNodejs (2024-11-04 alpine3.20)
 * php8.3.12_node22.9.0, php8.3.12_withoutNodejs (2024-10-08 alpine3.20)
 * php8.3.11_node22.7.0, php8.3.11_withoutNodejs (2024-09-03 alpine3.20)
@@ -51,14 +52,14 @@ Based on php:8.4.1-fpm-alpine3.20, node:23.3.0-alpine3.20 (nodejs is not include
 
 ```
 # php -v
-PHP 8.4.1 (cli) (built: Nov 21 2024 17:58:18) (NTS)
+PHP 8.4.2 (cli) (built: Dec 20 2024 21:32:38) (NTS)
 Copyright (c) The PHP Group
 Built by https://github.com/docker-library/php
-Zend Engine v4.4.1, Copyright (c) Zend Technologies
-    with Zend OPcache v8.4.1, Copyright (c), by Zend Technologies
+Zend Engine v4.4.2, Copyright (c) Zend Technologies
+    with Zend OPcache v8.4.2, Copyright (c), by Zend Technologies
 
 # node -v
-v23.3.0
+v23.5.0
 
 # nginx -v
 nginx version: nginx/1.27.3
