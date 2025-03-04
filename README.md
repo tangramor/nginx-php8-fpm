@@ -1,6 +1,6 @@
 # Nginx + php-fpm (v8) + nodejs
 
-Based on php:8.4.3-fpm-alpine3.21, node:23.7.0-alpine3.21 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
+Based on php:8.4.4-fpm-alpine3.21, node:23.9.0-alpine3.21 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
 * Since `php8.4.1_node23.3.0`, PHP `brotli` module is added and `swoole` module is removed (it doesn't support 8.4 by now).
 * Since `php8.3.6_node22.1.0`, PHP `imagick` module is added.
@@ -10,7 +10,8 @@ Based on php:8.4.3-fpm-alpine3.21, node:23.7.0-alpine3.21 (nodejs is not include
 * Since `php8.1.12`, added `_withoutNodejs` build for some pure PHP API frameworks like [Lumen](https://lumen.laravel.com)
 
 **Tags:**
-* latest, php8.4.3_node23.7.0, php8.4.3_withoutNodejs (2025-02-05 alpine3.21)
+* latest, php8.4.4_node23.9.0, php8.4.4_withoutNodejs (2025-03-03 alpine3.21)
+* php8.4.3_node23.7.0, php8.4.3_withoutNodejs (2025-02-05 alpine3.21)
 * php8.4.2_node23.5.0, php8.4.2_withoutNodejs (2025-01-02 alpine3.20)
 * php8.4.1_node23.3.0, php8.4.1_withoutNodejs (2024-12-02 alpine3.20) **Note: PHP version is 8.4 now!**
 * php8.3.13_node22.11.0, php8.3.13_withoutNodejs (2024-11-04 alpine3.20)
@@ -53,17 +54,17 @@ Based on php:8.4.3-fpm-alpine3.21, node:23.7.0-alpine3.21 (nodejs is not include
 
 ```
 # php -v
-PHP 8.4.3 (cli) (built: Jan 17 2025 17:33:02) (NTS)
+PHP 8.4.4 (cli) (built: Feb 14 2025 19:20:49) (NTS)
 Copyright (c) The PHP Group
 Built by https://github.com/docker-library/php
-Zend Engine v4.4.3, Copyright (c) Zend Technologies
-    with Zend OPcache v8.4.3, Copyright (c), by Zend Technologies
+Zend Engine v4.4.4, Copyright (c) Zend Technologies
+    with Zend OPcache v8.4.4, Copyright (c), by Zend Technologies
 
 # node -v
-v23.7.0
+v23.9.0
 
 # nginx -v
-nginx version: nginx/1.27.3
+nginx version: nginx/1.27.4
 ```
 
 ## PHP Modules
@@ -138,7 +139,7 @@ GD SUPPORT {"GD Version":"bundled (2.1.0 compatible)","FreeType Support":true,"F
 
 ## How to use
 
-For example, use this docker image to deploy a **Laravel 10** project.
+For example, use this docker image to deploy a **Laravel 11** project.
 
 Dockerfile:
 
