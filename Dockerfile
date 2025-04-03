@@ -1,6 +1,6 @@
-FROM node:23.9.0-alpine3.21 AS nodejs
+FROM node:23.11.0-alpine3.21 AS nodejs
 
-FROM tangramor/nginx-php8-fpm:php8.4.4_withoutNodejs
+FROM tangramor/nginx-php8-fpm:php8.4.5_withoutNodejs
 
 LABEL org.opencontainers.image.authors="Wang Junhua(tangramor@gmail.com)"
 LABEL org.opencontainers.image.url="https://www.github.com/tangramor/nginx-php8-fpm"
