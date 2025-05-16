@@ -3,4 +3,4 @@
 docker build \
     --build-arg APKMIRROR="mirrors.tuna.tsinghua.edu.cn" \
     -f Dockerfile.withoutNodejs \
-    -t tangramor/nginx-php8-fpm:php8.4.5_withoutNodejs .
+    -t tangramor/nginx-php8-fpm:php8.4.6_withoutNodejs .
