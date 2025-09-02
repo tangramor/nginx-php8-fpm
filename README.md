@@ -1,6 +1,6 @@
 # Nginx + php-fpm (v8) + nodejs
 
-Based on php:8.4.11-fpm-alpine3.22, node:24.5.0-alpine3.22 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
+Based on php:8.4.12-fpm-alpine3.22, node:24.7.0-alpine3.22 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
 * Since `php8.4.1_node23.3.0`, PHP `brotli` module is added and `swoole` module is removed (it doesn't support 8.4 by now).
 * Since `php8.3.6_node22.1.0`, PHP `imagick` module is added.
@@ -10,7 +10,8 @@ Based on php:8.4.11-fpm-alpine3.22, node:24.5.0-alpine3.22 (nodejs is not includ
 * Since `php8.1.12`, added `_withoutNodejs` build for some pure PHP API frameworks like [Lumen](https://lumen.laravel.com)
 
 **Tags:**
-* latest, php8.4.11_node24.5.0, php8.4.11_withoutNodejs (2025-08-18 alpine3.22)
+* latest, php8.4.12_node24.7.0, php8.4.12_withoutNodejs (2025-09-02 alpine3.22)
+* php8.4.11_node24.5.0, php8.4.11_withoutNodejs (2025-08-18 alpine3.22)
 * php8.4.10_node24.3.0, php8.4.10_withoutNodejs (2025-07-07 alpine3.22)
 * php8.4.7_node24.1.0, php8.4.7_withoutNodejs (2025-06-03 alpine3.21)
 * php8.4.6_node23.11.0, php8.4.6_withoutNodejs (2025-05-06 alpine3.21)
@@ -59,17 +60,17 @@ Based on php:8.4.11-fpm-alpine3.22, node:24.5.0-alpine3.22 (nodejs is not includ
 
 ```
 # php -v
-PHP 8.4.11 (cli) (built: Aug  4 2025 20:47:23) (NTS)
+PHP 8.4.12 (cli) (built: Aug 28 2025 18:19:24) (NTS)
 Copyright (c) The PHP Group
 Built by https://github.com/docker-library/php
-Zend Engine v4.4.11, Copyright (c) Zend Technologies
-    with Zend OPcache v8.4.11, Copyright (c), by Zend Technologies
+Zend Engine v4.4.12, Copyright (c) Zend Technologies
+    with Zend OPcache v8.4.12, Copyright (c), by Zend Technologies
 
 # node -v
-v24.5.0
+v24.7.0
 
 # nginx -v
-nginx version: nginx/1.29.0
+nginx version: nginx/1.29.1
 ```
 
 ## PHP Modules
