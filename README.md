@@ -1,6 +1,6 @@
 # Nginx + php-fpm (v8) + nodejs
 
-Based on php:8.4.15-fpm-alpine3.22, node:25.2.1-alpine3.22 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
+Based on php:8.5.1-fpm-alpine3.23, node:25.2.1-alpine3.23 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
 * Since `php8.4.1_node23.3.0`, PHP `brotli` module is added and `swoole` module is removed (it doesn't support 8.4 by now).
 * Since `php8.3.6_node22.1.0`, PHP `imagick` module is added.
@@ -10,7 +10,9 @@ Based on php:8.4.15-fpm-alpine3.22, node:25.2.1-alpine3.22 (nodejs is not includ
 * Since `php8.1.12`, added `_withoutNodejs` build for some pure PHP API frameworks like [Lumen](https://lumen.laravel.com)
 
 **Tags:**
-* latest, php8.4.15_node25.2.1, php8.4.15_withoutNodejs (2025-12-10 alpine3.22)
+* latest, php8.5.1_node25.2.1, php8.5.1_withoutNodejs (2026-01-16 alpine3.23) **Note: PHP version is 8.5 now!**
+* php8.4.16_node25.2.1, php8.4.16_withoutNodejs (2026-01-14 alpine3.23)
+* php8.4.15_node25.2.1, php8.4.15_withoutNodejs (2025-12-10 alpine3.22)
 * php8.4.14_node25.1.0, php8.4.14_withoutNodejs (2025-11-07 alpine3.22)
 * php8.4.12_node24.9.0, php8.4.12_withoutNodejs (2025-10-10 alpine3.22)
 * php8.4.12_node24.7.0, php8.4.12_withoutNodejs (2025-09-02 alpine3.22)
@@ -59,21 +61,21 @@ Based on php:8.4.15-fpm-alpine3.22, node:25.2.1-alpine3.22 (nodejs is not includ
 * php8.0.13_node17 (2022-03-07)
 * php8_node15 (2022-03-07)
 
-**NOTE** If you are upgrading from PHP **8.0 to 8.1**, **8.1 to 8.2**, **8.2 to 8.3** or **8.3 to 8.4**, you may need to run `composer update` to upgrade php packages, because some packages under 8.0/8.1/8.2/8.3 are not supported in 8.1/8.2/8.3/8.4 .
+**NOTE** If you are upgrading from PHP **8.0 to 8.1**, **8.1 to 8.2**, **8.2 to 8.3**, **8.3 to 8.4** or **8.4 to 8.5**, you may need to run `composer update` to upgrade php packages, because some packages under 8.0/8.1/8.2/8.3 are not supported in 8.1/8.2/8.3/8.4 .
 
 ```
 # php -v
-PHP 8.4.15 (cli) (built: Nov 20 2025 19:58:03) (NTS)
+PHP 8.5.1 (cli) (built: Jan  9 2026 22:35:39) (NTS)
 Copyright (c) The PHP Group
 Built by https://github.com/docker-library/php
-Zend Engine v4.4.15, Copyright (c) Zend Technologies
-    with Zend OPcache v8.4.15, Copyright (c), by Zend Technologies
+Zend Engine v4.5.1, Copyright (c) Zend Technologies
+    with Zend OPcache v8.5.1, Copyright (c), by Zend Technologies
 
 # node -v
 v25.2.1
 
 # nginx -v
-nginx version: nginx/1.29.3
+nginx version: nginx/1.29.4
 ```
 
 ## PHP Modules
@@ -103,6 +105,7 @@ imap
 intl
 json
 ldap
+lexbor
 libxml
 mbstring
 memcached
@@ -132,6 +135,7 @@ SPL
 sqlite3
 standard
 tokenizer
+uri
 xml
 xmlreader
 xmlwriter

@@ -29,7 +29,7 @@ ENV PHP_MODULE_DEPS="gcc make libc-dev rabbitmq-c-dev zlib-dev libmemcached-dev 
 
 ENV NGINX_VERSION=1.29.4
 ENV NGINX_PKG_RELEASE=1
-ENV NJS_VERSION=0.9.4
+ENV NJS_VERSION=0.9.5
 ENV PKG_RELEASE=1
 ENV IMAGICK_VERSION=3.8.1
 
@@ -66,6 +66,7 @@ RUN if [ "$APKMIRROR" != "dl-cdn.alpinelinux.org" ]; then sed -i 's/dl-cdn.alpin
         nginx-module-image-filter=${NGINX_VERSION}-r${PKG_RELEASE} \
         nginx-module-njs=${NGINX_VERSION}.${NJS_VERSION}-r${NGINX_PKG_RELEASE} \
         nginx-mod-http-brotli \
+        nginx-module-acme \
     " \
     && case "$apkArch" in \
         x86_64|aarch64) \
@@ -190,18 +191,14 @@ RUN curl http://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --fil
     && apk add --no-cache --update --virtual .phpize-deps $PHPIZE_DEPS \
     && apk add --no-cache --update --virtual .all-deps $PHP_MODULE_DEPS \
     && docker-php-ext-configure gd --with-jpeg --with-freetype --with-webp
-RUN docker-php-ext-install exif sockets gd bcmath intl soap mysqli pdo pdo_mysql pgsql pdo_pgsql zip ldap 
-RUN mkdir -p /usr/local/lib/php/extensions/no-debug-non-zts-20250925/
-#RUN docker-php-ext-install lexbor
-#RUN docker-php-ext-install dom 
-RUN docker-php-ext-install opcache 
-RUN docker-php-ext-install gettext
+RUN docker-php-ext-install exif sockets gd bcmath intl soap mysqli pdo pdo_mysql pgsql pdo_pgsql zip ldap gettext \
+    # Since 8.5, lexbor and dom are built-in extensions, and opcache is also enabled by default as 'Zend OPcache'
     # && docker-php-ext-install exif sockets gd bcmath intl soap mysqli pdo pdo_mysql pgsql pdo_pgsql zip ldap lexbor dom opcache gettext \
-RUN printf "\n\n" | pecl install amqp \
+    && docker-php-ext-enable sockets \
+    printf "\n\n" | pecl install amqp \
     && docker-php-ext-enable amqp \
     && printf "\n\n\n\n" | pecl install -o -f redis \
     && docker-php-ext-enable redis \
-    && docker-php-ext-enable sockets \
     && pecl install msgpack && docker-php-ext-enable msgpack \
     && pecl install igbinary && docker-php-ext-enable igbinary \
     #&& pecl install swoole && docker-php-ext-enable swoole \
