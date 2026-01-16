@@ -190,8 +190,8 @@ RUN curl http://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --fil
     && set -xe \
     && apk add --no-cache --update --virtual .phpize-deps $PHPIZE_DEPS \
     && apk add --no-cache --update --virtual .all-deps $PHP_MODULE_DEPS \
-    && docker-php-ext-configure gd --with-jpeg --with-freetype --with-webp
-RUN docker-php-ext-install exif sockets gd bcmath intl soap mysqli pdo pdo_mysql pgsql pdo_pgsql zip ldap gettext \
+    && docker-php-ext-configure gd --with-jpeg --with-freetype --with-webp \
+    && docker-php-ext-install exif sockets gd bcmath intl soap mysqli pdo pdo_mysql pgsql pdo_pgsql zip ldap gettext \
     # Since 8.5, lexbor and dom are built-in extensions, and opcache is also enabled by default as 'Zend OPcache'
     # && docker-php-ext-install exif sockets gd bcmath intl soap mysqli pdo pdo_mysql pgsql pdo_pgsql zip ldap lexbor dom opcache gettext \
     && docker-php-ext-enable sockets \
