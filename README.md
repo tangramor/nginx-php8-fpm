@@ -1,6 +1,6 @@
 # Nginx + php-fpm (v8) + nodejs
 
-Based on php:8.5.1-fpm-alpine3.23, node:25.2.1-alpine3.23 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
+Based on php:8.5.2-fpm-alpine3.23, node:25.6.0-alpine3.23 (nodejs is not included in most of other nginx-php images...but needed by a lot of php frameworks), with nginx:alpine and richarvey/nginx-php-fpm's Docker script
 
 * Since `php8.4.1_node23.3.0`, PHP `brotli` module is added and `swoole` module is removed (it doesn't support 8.4 by now).
 * Since `php8.3.6_node22.1.0`, PHP `imagick` module is added.
@@ -10,7 +10,8 @@ Based on php:8.5.1-fpm-alpine3.23, node:25.2.1-alpine3.23 (nodejs is not include
 * Since `php8.1.12`, added `_withoutNodejs` build for some pure PHP API frameworks like [Lumen](https://lumen.laravel.com)
 
 **Tags:**
-* latest, php8.5.1_node25.2.1, php8.5.1_withoutNodejs (2026-01-16 alpine3.23) **Note: PHP version is 8.5 now!**
+* latest, php8.5.2_node25.6.0, php8.5.2_withoutNodejs (2026-02-12 alpine3.23)
+* php8.5.1_node25.2.1, php8.5.1_withoutNodejs (2026-01-16 alpine3.23) **Note: PHP version is 8.5 now!**
 * php8.4.16_node25.2.1, php8.4.16_withoutNodejs (2026-01-14 alpine3.23)
 * php8.4.15_node25.2.1, php8.4.15_withoutNodejs (2025-12-10 alpine3.22)
 * php8.4.14_node25.1.0, php8.4.14_withoutNodejs (2025-11-07 alpine3.22)
@@ -65,17 +66,17 @@ Based on php:8.5.1-fpm-alpine3.23, node:25.2.1-alpine3.23 (nodejs is not include
 
 ```
 # php -v
-PHP 8.5.1 (cli) (built: Jan  9 2026 22:35:39) (NTS)
+PHP 8.5.2 (cli) (built: Jan 30 2026 01:12:39) (NTS)
 Copyright (c) The PHP Group
 Built by https://github.com/docker-library/php
-Zend Engine v4.5.1, Copyright (c) Zend Technologies
-    with Zend OPcache v8.5.1, Copyright (c), by Zend Technologies
+Zend Engine v4.5.2, Copyright (c) Zend Technologies
+    with Zend OPcache v8.5.2, Copyright (c), by Zend Technologies
 
 # node -v
-v25.2.1
+v25.6.0
 
 # nginx -v
-nginx version: nginx/1.29.4
+nginx version: nginx/1.29.5
 ```
 
 ## PHP Modules
@@ -147,7 +148,7 @@ zlib
 Zend OPcache
 
 # php -r "echo sprintf(\"GD SUPPORT %s\n\", json_encode(gd_info()));"
-GD SUPPORT {"GD Version":"bundled (2.1.0 compatible)","FreeType Support":true,"FreeType Linkage":"with freetype","GIF Read Support":true,"GIF Create Support":true,"JPEG Support":true,"PNG Support":true,"WBMP Support":true,"XPM Support":false,"XBM Support":true,"WebP Support":true,"BMP Support":true,"AVIF Support":false,"TGA Read Support":true,"JIS-mapped Japanese Font Support":false}
+GGD SUPPORT {"GD Version":"bundled (2.1.0 compatible)","FreeType Support":true,"FreeType Linkage":"with freetype","GIF Read Support":true,"GIF Create Support":true,"JPEG Support":true,"PNG Support":true,"WBMP Support":true,"XPM Support":false,"XBM Support":true,"WebP Support":true,"BMP Support":true,"AVIF Support":false,"TGA Read Support":true,"JIS-mapped Japanese Font Support":false}
 ```
 
 ## How to use
