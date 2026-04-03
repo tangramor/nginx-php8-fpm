@@ -1,4 +1,4 @@
-FROM node:25.6.0-alpine3.23 AS nodejs
+FROM node:25.9.0-alpine3.23 AS nodejs
 
 FROM tangramor/nginx-php8-fpm:php8.5.2_withoutNodejs
 
